@@ -126,7 +126,7 @@ export const Hero = () => {
             {/* Floating glass cards */}
             <div className="glass animate-float-slow absolute -left-10 top-10 hidden rounded-2xl px-4 py-3 md:block">
               <div className="flex items-center gap-3">
-                <div className="grid h-9 w-9 place-items-center rounded-full bg-sage/30">
+                <div className="grid h-8 w-8 place-items-center rounded-full bg-sage/30">
                   <Heart className="h-4 w-4 text-sage" />
                 </div>
                 <div>

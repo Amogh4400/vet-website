@@ -25,6 +25,17 @@ export const Booking = () => {
   const [time, setTime] = useState<string>("10:30");
   const [done, setDone] = useState(false);
 
+  const selectedPet = pets.find((p) => p.id === pet) ?? pets[0];
+  const selectedService = services.find((s) => s.id === svc) ?? services[0];
+
+  const resetBooking = () => {
+    setPet("dog");
+    setSvc("checkup");
+    setDay("Wed 7");
+    setTime("10:30");
+    setDone(false);
+  };
+
   return (
     <section id="book" className="relative overflow-hidden bg-secondary py-24 md:py-36">
       <div className="blob left-[-5%] top-[10%] h-[300px] w-[300px] bg-sage/30" />
@@ -59,9 +70,9 @@ export const Booking = () => {
                 </div>
                 <h3 className="display-font text-3xl font-light">You're all set.</h3>
                 <p className="mt-3 max-w-md text-foreground/70">
-                  We've reserved <strong>{day} at {time}</strong> for your {pet}. A confirmation is on its way.
+                  We&apos;ve reserved a <strong>{selectedService.label}</strong> for your <strong>{selectedPet.label}</strong> on <strong>{day} at {time}</strong>. A confirmation is on its way.
                 </p>
-                <button onClick={() => setDone(false)} className="mt-8 rounded-full border border-foreground/15 px-6 py-3 text-sm hover:bg-foreground/5">
+                <button type="button" onClick={resetBooking} className="mt-8 rounded-full border border-foreground/15 px-6 py-3 text-sm hover:bg-foreground/5">
                   Book another
                 </button>
               </div>
@@ -74,6 +85,8 @@ export const Booking = () => {
                     return (
                       <button
                         key={p.id}
+                        type="button"
+                        aria-pressed={active}
                         onClick={() => setPet(p.id)}
                         className={`group flex flex-col items-center gap-3 rounded-2xl border p-5 transition-all duration-300 ${active ? "border-foreground bg-foreground text-background" : "border-foreground/10 bg-background/40 hover:border-foreground/30"}`}
                       >
@@ -91,6 +104,8 @@ export const Booking = () => {
                     return (
                       <button
                         key={s.id}
+                        type="button"
+                        aria-pressed={active}
                         onClick={() => setSvc(s.id)}
                         className={`flex items-center justify-between gap-4 rounded-2xl border p-4 text-left transition-all duration-300 ${active ? "border-foreground bg-foreground text-background" : "border-foreground/10 bg-background/40 hover:border-foreground/30"}`}
                       >
@@ -113,6 +128,8 @@ export const Booking = () => {
                     return (
                       <button
                         key={d}
+                        type="button"
+                        aria-pressed={active}
                         onClick={() => setDay(d)}
                         className={`flex-shrink-0 rounded-2xl px-5 py-3 text-sm transition-all duration-300 ${active ? "bg-foreground text-background" : "bg-background/40 hover:bg-background/70"}`}
                       >
@@ -127,6 +144,8 @@ export const Booking = () => {
                     return (
                       <button
                         key={t}
+                        type="button"
+                        aria-pressed={active}
                         onClick={() => setTime(t)}
                         className={`rounded-xl py-3 text-sm transition-all duration-300 ${active ? "bg-sage text-sage-foreground" : "bg-background/40 hover:bg-background/70"}`}
                       >
@@ -137,6 +156,7 @@ export const Booking = () => {
                 </div>
 
                 <button
+                  type="button"
                   onClick={() => setDone(true)}
                   className="group mt-10 inline-flex w-full items-center justify-between gap-3 rounded-full bg-foreground px-7 py-5 text-sm font-medium text-background transition-all duration-300 hover:shadow-warm sm:w-auto"
                 >
